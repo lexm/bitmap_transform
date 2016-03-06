@@ -1,7 +1,5 @@
 'use strict';
 var expect = require('chai').expect;
-console.log(__dirname);
-// var xform = require(__dirname + '/../xform');
 var bmpio = require(__dirname + '/../lib/io');
 var Bitmap = bmpio.Bitmap;
 var bm = new Bitmap(__dirname + '/../img/palette-bitmap.bmp');
