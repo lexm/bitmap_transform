@@ -1,21 +1,24 @@
 'use strict';
-const fs = require('fs');
 
-let bitmap = fs.readFileSync(__dirname + '/' + process.argv[2]);
-let bitmapData = {};
+const EventEmitter = require('events').EventEmitter;
+global.eventEmitter = new EventEmitter();
 
-bitmapData.headField = bitmap.toString('ascii', 0 ,2);
-bitmapData.size = bitmap.readUInt32LE(2);
-bitmapData.pixelArrayStart = bitmap.readUInt32LE(10);
-bitmapData.paletteColors = bitmap.readUInt32LE(46);
+const bmpIo = require(__dirname + '/lib/bmpIo');
+const invert = require(__dirname + '/lib/invert');
 
-if(bitmapData.pixelArrayStart === 1078) {
-  console.log('palette code goes here');
-} else if (bitmapData.pixelArrayStart === 54) {
-  console.log('non-palette code goes here');
-} else {
-  console.log('is this even a BMP?');
-}
+var filename = process.argv[2];
+var newFilename = process.argv[3];
 
-console.log('first color: ' + bitmap[54]);
-console.dir(bitmapData);
+let bitmapData = new bmpIo.Bitmap(filename);
+
+eventEmitter.on('fileRead', function() {
+  bitmapData.loadMetadata();
+});
+
+eventEmitter.on('metadataLoaded', function () {
+  invert.invertBmp(bitmapData);
+});
+
+eventEmitter.on('invertDone', function() {
+  bitmapData.write(newFilename);
+});
