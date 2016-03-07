@@ -1,10 +1,9 @@
 'use strict';
 var expect = require('chai').expect;
-var eventEmitter = require(__dirname + '/../lib/emitter').emitter;
+// var eventEmitter = require(__dirname + '/../lib/emitter').emitter;
 var bmpio = require(__dirname + '/../lib/io');
 var Bitmap = bmpio.Bitmap;
 var bm = new Bitmap(__dirname + '/../img/palette-bitmap.bmp');
-bm.readBitmapFile();
 
 
 describe('testing object creation', function() {
@@ -13,23 +12,23 @@ describe('testing object creation', function() {
   });
 });
 
-eventEmitter.on('fileRead', function() {
-  describe('testing file input', function() {
-    it('should have a buffer in the bitmap prop', function(done){
-      expect(bm.bitmap).to.exist;
-      done();
-    });
-    it('should find the header field to be "BM"', function() {
-      expect(bm.bitmap.toString('ascii', 0, 2)).to.equal('BM');
-    });
+describe('testing file input', function() {
+  before(function(done){
+    bm.readBitmapFile(done);
+  });
+  it('should have a buffer in the bitmap prop', function(done){
+    expect(bm.bitmap).to.exist;
+    done();
+  });
+  it('should find the header field to be "BM"', function() {
+    expect(bm.bitmap.toString('ascii', 0, 2)).to.equal('BM');
   });
 });
-
 
 describe('testing metadata load', function() {
   before(function(done){
     bm.loadMetadata(done);
-  })
+  });
   it('should now have "BM" in the headField property', function() {
     expect(bm.headField).to.equal('BM');
   });
@@ -44,5 +43,5 @@ describe('testing metadata load', function() {
   });
 });
 
-eventEmitter.on('metadataLoaded', function() {
-});
+// eventEmitter.on('metadataLoaded', function() {
+// });
