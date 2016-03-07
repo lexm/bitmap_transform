@@ -6,6 +6,7 @@ var bmpio = require(__dirname + '/../lib/io');
 var Bitmap = bmpio.Bitmap;
 var bm = new Bitmap(__dirname + '/../img/palette-bitmap.bmp');
 // var bm_nopal= new Bitmap(__dirname +  '/../img/non-palette-bitmap.bmp');
+bm.readBitmapFile();
 
 eventEmitter.on('fileRead', function() {
   bm.loadMetadata();
