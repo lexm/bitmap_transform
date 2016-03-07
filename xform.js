@@ -1,7 +1,8 @@
 'use strict';
 
-const EventEmitter = require('events').EventEmitter;
-global.eventEmitter = new EventEmitter();
+// const EventEmitter = require('events').EventEmitter;
+// global.eventEmitter = new EventEmitter();
+var eventEmitter = require(__dirname + '/lib/emitter').emitter;
 
 const bmpIo = require(__dirname + '/lib/io');
 const invert = require(__dirname + '/lib/invert');
@@ -16,6 +17,7 @@ eventEmitter.on('fileRead', function() {
 });
 
 eventEmitter.on('metadataLoaded', function () {
+  console.dir(bitmapData.paletteColors);
   invert.invertBmp(bitmapData);
 });
 
