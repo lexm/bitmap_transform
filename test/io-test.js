@@ -1,6 +1,6 @@
 'use strict';
 var expect = require('chai').expect;
-var eventEmitter = require(__dirname + '/../lib/emitter').emitter;
+// var eventEmitter = require(__dirname + '/../lib/emitter').emitter;
 var bmpio = require(__dirname + '/../lib/io');
 var Bitmap = bmpio.Bitmap;
 var bm = new Bitmap(__dirname + '/../img/palette-bitmap.bmp');
@@ -43,5 +43,5 @@ describe('testing metadata load', function() {
   });
 });
 
-eventEmitter.on('metadataLoaded', function() {
-});
+// eventEmitter.on('metadataLoaded', function() {
+// });
