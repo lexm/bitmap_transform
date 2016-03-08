@@ -1,6 +1,6 @@
 'use strict';
 
-const bmpIo = require(__dirname + '/lib/io');
+const bmpIo = require(__dirname + '/lib/ioBmp');
 const invert = require(__dirname + '/lib/invert');
 
 var filename = process.argv[2];

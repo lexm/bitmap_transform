@@ -1,7 +1,7 @@
 'use strict';
 var expect = require('chai').expect;
 var invert = require(__dirname + '/../lib/invert');
-var bmpio = require(__dirname + '/../lib/io');
+var bmpio = require(__dirname + '/../lib/ioBmp');
 var Bitmap = bmpio.Bitmap;
 var bm = new Bitmap(__dirname + '/../img/palette-bitmap.bmp');
 
