@@ -6,12 +6,19 @@ const invert = require(__dirname + '/lib/invert');
 var filename = process.argv[2];
 var newFilename = process.argv[3];
 
-let bitmapData = new bmpIo.Bitmap(filename);
+if (!filename) {
+  console.log('Usage: "node xform.js [old filename] [new filename]"');
+} else {
+  if (!newFilename){
+    newFilename = 'xf-' + filename;
+  }
+  let bitmapData = new bmpIo.Bitmap(filename);
 
-bitmapData.readBitmapFile(function() {
-  bitmapData.loadMetadata(function() {
-    invert.invertBmp(bitmapData, function() {
-      bitmapData.write(newFilename);
+  bitmapData.readBitmapFile(function() {
+    bitmapData.loadMetadata(function() {
+      invert.invertBmp(bitmapData, function() {
+        bitmapData.write(newFilename);
+      });
     });
   });
-});
+}
